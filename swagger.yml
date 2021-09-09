@@ -1,0 +1,1030 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /people:
+    get:
+      operationId: people.read_all
+      tags:
+        - People
+      summary: Read the entire set of people, sorted by last name
+      description: Read the entire set of people, sorted by last name
+      responses:
+        200:
+          description: Successfully read people set operation
+          schema:
+            type: array
+            items:
+              properties:
+                person_id:
+                  type: integer
+                  description: Id of the person
+                fname:
+                  type: string
+                  description: First name of the person
+                lname:
+                  type: string
+                  description: Last name of the person
+                wallet_id:
+                  type: integer
+                  description: Id of the person
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the person
+
+    post:
+      operationId: people.create
+      tags:
+        - People
+      summary: Create a person
+      description: Create a new person
+      parameters:
+        - name: person
+          in: body
+          description: Person to create
+          required: True
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: First name of person to create
+              lname:
+                type: string
+                description: Last name of person to create
+      responses:
+        201:
+          description: Successfully created person
+          schema:
+            properties:
+              person_id:
+                type: integer
+                description: Id of the person
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+              wallet_id:
+                type: integer
+                description: Id of the person
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the person record
+
+  /people/{person_id}:
+    get:
+      operationId: people.read_one
+      tags:
+        - People
+      summary: Read one person
+      description: Read one person
+      parameters:
+        - name: person_id
+          in: path
+          description: Id of the person to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read person from people data operation
+          schema:
+            type: object
+            properties:
+              person_id:
+                type: integer
+                description: Id of the person
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+              wallet_id:
+                type: integer
+                description: Id of the person
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the person record
+
+    put:
+      operationId: people.update
+      tags:
+        - People
+      summary: Update a person
+      description: Update a person
+      parameters:
+        - name: person_id
+          in: path
+          description: Id the person to update
+          type: integer
+          required: true
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+      responses:
+        200:
+          description: Successfully updated person
+          schema:
+            properties:
+              person_id:
+                type: integer
+                description: Id of the person in the database
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+              wallet_id:
+                type: integer
+                description: Id of the person
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the person record
+
+    delete:
+      operationId: people.delete
+      tags:
+        - People
+      summary: Delete a person from the people list
+      description: Delete a person
+      parameters:
+        - name: person_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a person
+
+  /token:
+    get:
+      operationId: tokens.read_all
+      tags:
+        - Token
+      summary: Read the entire set of tokens, sorted by last address
+      description: Read the entire set of tokens, sorted by last address
+      responses:
+        200:
+          description: Successfully read token set operation
+          schema:
+            type: array
+            items:
+              properties:
+                token_id:
+                  type: string
+                  description: Id of the token
+                address:
+                  type: string
+                  description: address of token to create
+                symbol:
+                  type: string
+                  description: symbol of token to create
+                decimal:
+                  type: integer
+                  description: decimalpoint of token to create
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the token
+
+    post:
+      operationId: tokens.create
+      tags:
+        - Token
+      summary: Create a token
+      description: Create a new token
+      parameters:
+        - name: token
+          in: body
+          description: token to create
+          required: True
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              symbol:
+                type: string
+                description: symbol of token to create
+              decimal:
+                type: integer
+                description: decimalpoint of token to create
+      responses:
+        201:
+          description: Successfully created token
+          schema:
+            properties:
+              token_id:
+                type: string
+                description: Id of the token
+              address:
+                type: string
+                description: address of token to create
+              symbol:
+                type: string
+                description: symbol of token to create
+              decimal:
+                type: integer
+                description: decimalpoint of token to create
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the token record
+
+  /token/{token_id}:
+    get:
+      operationId: tokens.read_one
+      tags:
+        - Token
+      summary: Read one token
+      description: Read one token
+      parameters:
+        - name: token_id
+          in: path
+          description: Id of the token to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read token from token data operation
+          schema:
+            type: object
+            properties:
+              token_id:
+                type: string
+                description: Id of the token
+              address:
+                type: string
+                description: address of token to create
+              symbol:
+                type: string
+                description: symbol of token to create
+              decimal:
+                type: integer
+                description: decimalpoint of token to create
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the token record
+
+    put:
+      operationId: tokens.update
+      tags:
+        - Token
+      summary: Update a token
+      description: Update a token
+      parameters:
+        - name: token_id
+          in: path
+          description: Id the token to update
+          type: integer
+          required: true
+        - name: token
+          in: body
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              symbol:
+                type: string
+                description: symbol of token to create
+              decimal:
+                type: integer
+                description: decimalpoint of token to create
+      responses:
+        200:
+          description: Successfully updated token
+          schema:
+            properties:
+              token_id:
+                type: string
+                description: Id of the token in the database
+              address:
+                type: string
+                description: address of token to create
+              symbol:
+                type: string
+                description: symbol of token to create
+              decimal:
+                type: integer
+                description: decimalpoint of token to create
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the token record
+
+    delete:
+      operationId: tokens.delete
+      tags:
+        - Token
+      summary: Delete a token from the token list
+      description: Delete a token
+      parameters:
+        - name: token_id
+          in: path
+          type: integer
+          description: Id of the token to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a token
+
+  /eth_accounts:
+    get:
+      operationId: accounts.eth_get_all
+      tags:
+        - Accounts
+      summary: Read the entire set of tokens, sorted by last address
+      description: Read the entire set of tokens, sorted by last address
+      responses:
+        200:
+          description: Successfully read accounts on blockchain
+          schema:
+            type: array
+            items:
+              properties:
+                address:
+                  type: string
+                  description: address of accounts
+
+
+  /accounts:
+    get:
+      operationId: accounts.read_all
+      tags:
+        - Accounts
+      summary: Read the entire set of tokens, sorted by last address
+      description: Read the entire set of tokens, sorted by last address
+      responses:
+        200:
+          description: Successfully read accounts on blockchain
+          schema:
+            type: array
+            items:
+              properties:
+                account_id:
+                  type: string
+                  description: address of accounts
+                address:
+                  type: string
+                  description: address of accounts
+    post:
+      operationId: accounts.create
+      tags:
+        - Accounts
+      summary: Create a account
+      description: Create a new account
+      responses:
+        201:
+          description: Successfully created person
+          schema:
+            properties:
+              account_id:
+                type: string
+                description: Id of the account
+              address:
+                type: string
+                description: address of account
+              pk:
+                type: string
+                description: pk of account
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the account record
+    delete:
+      operationId: accounts.delete
+      tags:
+        - Token
+      summary: Delete a account from the account list
+      description: Delete a account
+      parameters:
+        - name: account_id
+          in: path
+          type: integer
+          description: Id of the token to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a account
+
+  /account/<account_id>/address:
+    get:
+      operationId: accounts.getAddress
+      tags:
+        - AccountId
+      summary: get the id
+      description: get the address
+      parameters:
+        - name: account_id
+          in: path
+          description: id of account
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successfully read address from account
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+
+  /account/<account_id>/balancebyid:
+    get:
+      operationId: accounts.balancebyid
+      tags:
+        - Balance
+      summary: get the balance
+      description: get the balance
+      parameters:
+        - name: account_id
+          in: path
+          description: balance according to address of account
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read balance from account
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              balance:
+                type: string
+                description: balance
+
+  /account/<account_address>/balance:
+    get:
+      operationId: accounts.balance
+      tags:
+        - Balance
+      summary: get the balance
+      description: get the balance
+      parameters:
+        - name: account_address
+          in: path
+          description: balance according to address of account
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read balance from account
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              balance:
+                type: string
+                description: balance
+
+  /account/<payer_address>/<payer_private_key>/transfer/<recipient_address>/<ammount>:
+      put:
+        operationId: accounts.transaction
+        tags:
+          - Acc_Transfer
+        summary: transfer betwing accounts
+        description: transfer betwing accounts
+        parameters:
+          - name: payer_address
+            in: path
+            description:  address of payer account
+            type: string
+            required: True
+          - name: payer_private_key
+            in: path
+            description: payer private keys
+            type: string
+            required: true
+          - name: recipient_address
+            in: path
+            description: address of recipient account
+            type: string
+            required: True
+          - name: ammount
+            in: path
+            description:  account to transfer
+            type: number
+            required: True
+        responses:
+          200:
+            description: Successfully read balance from account
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: address of token to create
+                balance:
+                  type: string
+                  description: balance
+
+  /account/<payer_id>/transferbyid/<recipient_id>/<ammount>:
+    get:
+      operationId: accounts.transactionbyid
+      tags:
+        - Acc_Transfer
+      summary: transfer betwing accounts
+      description: transfer betwing accounts
+      parameters:
+        - name: payer_id
+          in: path
+          description: id of payer   account
+          type: integer
+          required: True
+        - name: recipient_id
+          in: path
+          description: address of recipient account
+          type: integer
+          required: True
+        - name: ammount
+          in: path
+          description: account to transfer
+          type: number
+          required: True
+      responses:
+        200:
+          description: Successfully read balance from account
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              balance:
+                type: string
+                description: balance
+
+
+
+  /token/{token_id}/balancebyid/{account_id}:
+    get:
+      operationId: tokens.balancebyid
+      tags:
+        - Balance
+      summary: get the balance
+      description: Returns balance of token on account
+      parameters:
+        - name: token_id
+          in: path
+          description: ID of the token
+          required: true
+          type: integer
+          format: int64
+        - name: account_id
+          in: path
+          description: ID of answer to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully read balance from account
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: address of token to create
+              balance:
+                type: string
+                description: symbol of token
+
+
+  /token/{token_id}/eventsbyid/{account_id}:
+    get:
+      operationId: tokens.eventsbyid
+      tags:
+        - Balance
+      summary: get the balance
+      description: Returns balance of token on account
+      parameters:
+        - name: token_id
+          in: path
+          description: ID of the token
+          required: true
+          type: integer
+          format: int64
+        - name: account_id
+          in: path
+          description: ID of answer to fetch
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Successfully read balance from account
+          schema:
+            type: object
+            properties:
+              events:
+                type: string
+                description: all events of token
+
+
+  /token/<token_id>/<payer_id>/transferbyid/<recipient_id>/<ammount>:
+      get:
+        operationId: tokens.transferbyid
+        tags:
+          - Acc_Transfer
+        summary: transfer tokens betwin accounts
+        description: transfer tokens betwin accounts
+        parameters:
+          - name: token_id
+            in: path
+            description: id of token
+            type: integer
+            required: True
+          - name: payer_id
+            in: path
+            description: id of payer account
+            type: integer
+            required: true
+          - name: recipient_id
+            in: path
+            description: balance according to address of account
+            type: integer
+            required: true
+          - name: ammount
+            in: path
+            description: balance according to address of account
+            type: integer
+            required: true
+        responses:
+          200:
+            description: Successfully read balance from account
+            schema:
+              type: object
+              properties:
+                hash:
+                  type: string
+                  description: hash of thansaction
+
+  /token/<token_id>/<payer_id>/allowancebyid/<recipient_id>:
+      put:
+        operationId: tokens.allowancebyid
+        tags:
+          - Acc_Transfer
+        summary: allowence to transfer betwin accounts
+        description: allowence to transfer betwin accounts
+        parameters:
+          - name: token_id
+            in: path
+            description: id of token
+            type: integer
+            required: True
+          - name: payer_id
+            in: path
+            description: id of payer account
+            type: integer
+            required: True
+          - name: recipient_id
+            in: path
+            description: balance according to address of account
+            type: integer
+            required: True
+
+        responses:
+          200:
+            description: Successfully read balance from account
+            schema:
+              type: object
+              properties:
+                ammount:
+                  type: string
+                  description: allowed ammount
+
+
+  /token/<token_id>/<payer_id>/externaltransferbyid/<recipient_id>/<ammount>:
+      put:
+        operationId: tokens.externaltransferbyid
+        tags:
+          - Acc_Transfer
+        summary: transfer token betwin accounts
+        description: transfer betwing accounts
+        parameters:
+          - name: token_id
+            in: path
+            description: id of token
+            type: integer
+            required: True
+          - name: payer_id
+            in: path
+            description: id of payer account
+            type: integer
+            required: True
+          - name: recipient_id
+            in: path
+            description: balance according to address of account
+            type: integer
+            required: True
+          - name: ammount
+            in: path
+            description: balance according to address of account
+            type: number
+            required: True
+        responses:
+          200:
+            description: Successfully read balance from account
+            schema:
+              type: object
+              properties:
+                hash:
+                  type: string
+                  description: hash of thansaction
+
+  /token/<token_id>/<payer_id>/approvebyid/<recipient_id>/<ammount>:
+      put:
+        operationId: tokens.approvebyid
+        tags:
+          - Acc_Transfer
+        summary: transfer betwing accounts
+        description: transfer betwing accounts
+        parameters:
+          - name: token_id
+            in: path
+            description: id of token
+            type: integer
+            required: True
+          - name: payer_id
+            in: path
+            description: id of payer account
+            type: integer
+            required: True
+          - name: recipient_id
+            in: path
+            description: balance according to address of account
+            type: integer
+            required: True
+          - name: ammount
+            in: path
+            description: balance according to address of account
+            type: number
+            required: True
+        responses:
+          200:
+            description: Successfully read balance from account
+            schema:
+              type: object
+              properties:
+                hash:
+                  type: string
+                  description: hash of thansaction
+
+  /check:
+    get:
+      operationId: accounts.check
+      tags:
+        - Check
+      summary: Read the entire set of tokens, sorted by last address
+      description: Read the entire set of tokens, sorted by last address
+      responses:
+        200:
+          description: Successfully read halth data
+          schema:
+            type: object
+#            items:
+#              properties:
+#                AttributeDict:
+#                  type: string
+#                  description: data about blockchain
+
+
+  /wallet:
+    get:
+      operationId: wallet.read_all
+      tags:
+        - Wallets
+      summary: Read the entire set of wallets, sorted by  name
+      description: Read the entire set of wallets, sorted by  name
+      responses:
+        200:
+          description: Successfully read wallet  operation
+          schema:
+            type: array
+            items:
+              properties:
+                wallet_id:
+                  type: string
+                  description: Id of the wallet
+                name:
+                  type: string
+                  description:  name of the wallet
+                address:
+                  type: string
+                  description: address  of the wallet
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the wallet
+
+    post:
+      operationId: wallet.create
+      tags:
+        - Wallet
+      summary: Create a wallet
+      description: Create a new wallet
+      parameters:
+        - name: wallet
+          in: body
+          description: wallet to create
+          required: True
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: First name of person to create
+              address:
+                type: string
+                description: address of person to create
+      responses:
+        201:
+          description: Successfully created person
+          schema:
+            properties:
+              wallet_id:
+                type: string
+                description: Id of the wallet
+              name:
+                type: string
+                description:  name of the wallet
+              address:
+                type: string
+                description: address of the wallet
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the wallet record
+
+  /wallet/{wallet_id}:
+    get:
+      operationId: wallet.read_one
+      tags:
+        - Wallet
+      summary: Read one person
+      description: Read one person
+      parameters:
+        - name: wallet_id
+          in: path
+          description: Id of the wallet to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read person from people data operation
+          schema:
+            type: object
+            properties:
+              wallet_id:
+                type: integer
+                description: Id of the wallet
+              name:
+                type: string
+                description:  name of the wallet
+              address:
+                type: string
+                description: address of the wallet
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the wallet record
+
+    put:
+      operationId: wallet.update
+      tags:
+        - Wallet
+      summary: Update a wallet
+      description: Update a wallet
+      parameters:
+        - name: wallet_id
+          in: path
+          description: Id the wallet to update
+          type: integer
+          required: true
+        - name: wallet_data
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description:  name of the wallet
+              address:
+                type: string
+                description: address of the wallet
+      responses:
+        200:
+          description: Successfully updated person
+          schema:
+            properties:
+              wallet_id:
+                type: integer
+                description: Id of the wallet in the database
+              name:
+                type: string
+                description: name of the wallet
+              address:
+                type: string
+                description: address of the wallet
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the wallet record
+
+    delete:
+      operationId: wallet.delete
+      tags:
+        - Wallet
+      summary: Delete a wallet from the wallet list
+      description: Delete a wallet
+      parameters:
+        - name: wallet_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a wallet
+
+
+  /wallet/{wallet_id}/accounts/{account_id}:
+    get:
+      operationId: wallet.getaccounts
+      tags:
+        - Wallet
+      summary: Read one person
+      description: Read one person
+      parameters:
+        - name: wallet_id
+          in: path
+          description: Id of the wallet to get
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully read person from people data operation
+
+    put:
+      operationId: wallet.addaccount
+      tags:
+        - Wallet
+      summary: Update a wallet
+      description: Update a wallet
+      parameters:
+        - name: wallet_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+        - name: account_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+      responses:
+        200:
+          description: Successfully updated person
+
+
+    delete:
+      operationId: wallet.removeaccount
+      tags:
+        - Wallet
+      summary: Delete a wallet from the wallet list
+      description: Delete a wallet
+      parameters:
+        - name: wallet_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+        - name: account_id
+          in: path
+          type: integer
+          description: Id of the person to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a wallet
